@@ -1,0 +1,51 @@
+
+What is 4 - 1?
+3
+Good Job!, your score is 1
+
+Sorry, the correct answer is 3, your score is 1
+What is 4 - 1?
+3
+Good Job!, your score is 2
+
+Sorry, the correct answer is 3, your score is 2
+What is 2 * 5?
+10
+Good Job!, your score is 3
+
+Sorry, the correct answer is 10, your score is 3
+What is 5 / 5?
+1
+Good Job!, your score is 4
+
+Sorry, the correct answer is 1, your score is 0
+What is 5 / 5?
+1
+Good Job!, your score is 5
+
+Sorry, the correct answer is 1, your score is 0
+What is 3 + 6?
+9
+Good Job!, your score is 6
+
+Sorry, the correct answer is 9, your score is 6
+What is 8 - 2?
+6
+Good Job!, your score is 7
+
+Sorry, the correct answer is 6, your score is 7
+What is 4 - 1?
+3
+Good Job!, your score is 8
+
+Sorry, the correct answer is 3, your score is 8
+What is 8 / 4?
+2
+Good Job!, your score is 9
+
+Sorry, the correct answer is 2, your score is 0
+What is 3 * 3?
+9
+Good Job!, your score is 10
+
+Sorry, the correct answer is 9, your score is 10

@@ -1,0 +1,265 @@
+Script started on Tue 06 Mar 2018 06:23:07 PM PST
+[nelsonej@athena:21]> cal
+     March 2018     
+Su Mo Tu We Th Fr Sa
+             1  2  3
+ 4  5 [7m 6[27m  7  8  9 10
+11 12 13 14 15 16 17
+18 19 20 21 22 23 24
+25 26 27 28 29 30 31
+
+[nelsonej@athena:22]> date
+Tue Mar  6 18:23:18 PST 2018
+[nelsonej@athena:23]> pwd
+/gaia/class/student/nelsonej/cCode/mathQuiz
+[nelsonej@athena:24]> cat mathQuiz.c
+#include <stdio.h>
+#include<stdlib.h>
+
+int quizData[30];
+
+int main(){
+	
+	srand(time(NULL));
+	
+	int x;
+	int i;
+	int opr;
+	int op1;
+	int op2;
+	int ans;
+	int score = 0;
+	int temp;
+	FILE *wp;
+	wp = fopen("results.txt", "w");
+	
+	
+	readData();	
+	
+	for(i = 0; i < 10; i++){
+		
+		
+		//selects a random question and sets up the operands and operators
+		x = rand() % 10 * 3;
+		opr = quizData[x];
+		op1 = quizData[x+1];
+		op2 = quizData[x+2];
+		
+		printf("\nWhat is %d %c %d?\n", op1, opr, op2);
+		fprintf(wp, "\nWhat is %d %c %d?\n", op1, opr, op2);
+		scanf("%d", &ans);
+		fprintf(wp, "%d", ans);
+
+		
+		
+		//prompts and scores a question
+		switch(opr){
+			
+			case '+':
+			if(ans == add(op1, op2)){
+				score++;
+				printf("\nGood Job!, your score is %d\n", score);
+				fprintf(wp, "\nGood Job!, your score is %d\n", score);
+			}
+			else
+				printf("\nSorry, the correct answer is %d, your score is %d", add(op1, op2), score);
+				fprintf(wp, "\nSorry, the correct answer is %d, your score is %d", add(op1, op2), score);
+
+			break;
+			
+			case '-':
+			if(ans == sub(op1, op2)){
+				score++;
+				printf("\nGood Job!, your score is %d\n", score);
+				fprintf(wp, "\nGood Job!, your score is %d\n", score);
+			}
+			else
+				printf("\nSorry, the correct answer is %d, your score is %d", sub(op1, op2), score);
+				fprintf(wp, "\nSorry, the correct answer is %d, your score is %d", sub(op1, op2), score);
+			break;
+			
+			case '*':
+			if(ans == mult(op1, op2)){
+				score++;
+				printf("\nGood Job!, your score is %d\n", score);
+				fprintf(wp, "\nGood Job!, your score is %d\n", score);
+			}
+			else
+				printf("\nSorry, the correct answer is %d, your score is %d", mult(op1, op2), score);
+				fprintf(wp, "\nSorry, the correct answer is %d, your score is %d", mult(op1, op2), score);
+			break;
+			
+			case '/':
+			if(ans == idiv(op1, op2)){
+				score++;
+				printf("\nGood Job!, your score is %d\n", score);
+				fprintf(wp, "\nGood Job!, your score is %d\n", score);
+			}
+			else
+				printf("\nSorry, the correct answer is %d, your score is %d", div(op1, op2), score);
+				fprintf(wp, "\nSorry, the correct answer is %d, your score is %d", div(op1, op2), score);
+			break;
+		}
+		
+		//post randomization switching
+		int y = i * 3;
+		quizData[x] = quizData[y];
+		quizData[y] = opr;
+		quizData[x+1] = quizData[y+1];
+		quizData[y+1] = op1;
+		quizData[x+2] = quizData[y+2];
+		quizData[y+2] = op2;
+		
+		
+		
+	}
+	
+	
+	
+	fclose(wp);	
+	return 0;
+	
+}
+
+
+
+int readData()
+{
+  int  i, j;
+  FILE *fp;
+  fp = fopen("/gaia/class/student/srivatss/csc60_18/shell/data.input","r");
+  if (fp == NULL)
+  {
+    printf("Unable to open the file.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  printf("The contents of the file are:\n", fp);
+  i = 0 ;
+  while ( 1 )
+  {
+    char ch;
+    ch = fgetc (fp);
+    if ( ch == '+' || ch == '*' || ch == '-' || ch == '/' )
+      {
+         printf ( "i=%c ", ch );
+         quizData[i++] = ch; // not casting, but I should actually
+         fscanf ( fp, "%d", &quizData [i++]);
+         printf ( "%d ", quizData [i-1] );
+         fscanf ( fp, "%d", &quizData [i++]);
+         printf ( "%d \n ", quizData [i-1] );
+      }
+
+    ch = fgetc (fp);
+    if ( ch == EOF )
+       break;
+  }
+
+  fclose(fp);
+}
+
+
+[nelsonej@athena:25]> cat add.c
+int add ( int a, int b)
+{
+	return a+b;
+}[nelsonej@athena:26]> cat sub.c
+// sub.c
+
+int sub ( int a, int b)
+{
+	return a-b;
+}[nelsonej@athena:27]> cat mult.c
+// mult.c
+
+int mult ( int a, int b)
+{
+	return a*b;
+}[nelsonej@athena:28]> cat div.c
+cat: div.c: No such file or directory
+[nelsonej@athena:29]> cat div.c[K[K[K[K[Kidiv.c
+// div.c
+int idiv ( int a, int b)
+{
+	if ( b != 0 )
+		return a/b;
+	else
+		return 0;
+}[nelsonej@athena:30]> make clean
+rm *.o
+[nelsonej@athena:31]> ls
+add.c  demo.txt  idiv.c  makefile  mathQuiz.c  mult.c  quiz  results.txt  sub.c
+[nelsonej@athena:32]> rm quiz
+[nelsonej@athena:33]> make Quiz
+gcc -c mathQuiz.c -o mathQuiz.o
+gcc -c add.c -o add.o
+gcc -c sub.c -o sub.o
+gcc -c mult.c -o mult.o
+gcc -c idiv.c -o idiv.o
+gcc mathQuiz.o add.o sub.o mult.o idiv.o -o quiz
+[nelsonej@athena:34]> quiz
+The contents of the file are:
+i=+ 6 2 
+ i=- 9 2 
+ i=* 3 4 
+ i=* 2 5 
+ i=/ 8 4 
+ i=+ 3 6 
+ i=- 4 1 
+ i=* 3 3 
+ i=/ 5 5 
+ i=- 8 2 
+ 
+What is 8 - 2?
+6
+
+Good Job!, your score is 1
+
+What is 2 * 5?
+10
+
+Good Job!, your score is 2
+
+What is 9 - 2?
+7
+
+Good Job!, your score is 3
+
+What is 8 - 2?
+6
+
+Good Job!, your score is 4
+
+What is 8 - 2?
+6
+
+Good Job!, your score is 5
+
+What is 6 + 2?
+8
+
+Good Job!, your score is 6
+
+What is 5 / 5?
+1
+
+Good Job!, your score is 7
+
+What is 5 / 5?
+1
+
+Good Job!, your score is 8
+
+What is 6 + 2?
+8
+
+Good Job!, your score is 9
+
+What is 3 + 6?
+9
+
+Good Job!, your score is 10
+[nelsonej@athena:35]> exit
+exit
+
+Script done on Tue 06 Mar 2018 06:25:38 PM PST
